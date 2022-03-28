@@ -4,6 +4,7 @@ export interface IWordLineProps {
   line: string,
   status: string,
   isActive: boolean,
+  word: string[],
   setLines: Dispatch<any>
 }
 
@@ -11,6 +12,7 @@ export interface ILineList {
   id: string,
   status: string,
   isActive: boolean,
+  word: string[],
 }
 
 export interface ITryObject {
