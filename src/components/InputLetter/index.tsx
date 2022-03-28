@@ -24,6 +24,7 @@ export function InputLetter({
       className={`${line}-${letter}`}
       value={status === 'answered' ? gameInfo.tries[+line][letter]?.letter : word[letter]}
       disabled={!isActive || status === 'answered'}
+      onClick={({ target }: any) => target.setSelectionRange(1, 1)}
     />
   );
 }

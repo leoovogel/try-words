@@ -1,16 +1,13 @@
-import {
-  useContext, useEffect, useRef, useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { IWordLineProps } from '../../utils/types';
-import tryWordContext from '../../context/tryWordContext';
 import { InputLetter } from '../InputLetter';
 import { Line } from './styles';
 
 export function WordLine({ ...rest }: IWordLineProps) {
   const [currentFocus, setCurrentFocus] = useState(0);
   const lineElement = useRef<HTMLDivElement>(null);
-  const { setGameInfo, gameInfo } = useContext<any>(tryWordContext);
+  const [word, setWord] = useState(['', '', '', '', '']);
 
   useEffect(() => {
     const prevFocusLetter = lineElement?.current?.children[currentFocus - 1] as HTMLInputElement;
@@ -23,18 +20,15 @@ export function WordLine({ ...rest }: IWordLineProps) {
   }, [currentFocus]);
 
   const handleChangeLetter = ({ target }: { target: HTMLInputElement }) => {
-    const newWord = [...gameInfo.lineList[+rest.line].word];
+    const newWord = [...word];
     const letterIndex = +target.className.slice(-1);
     newWord[letterIndex] = target.value.at(-1) || '';
-
-    const newLineList = [...gameInfo.lineList];
-    newLineList[+rest.line].word = newWord;
-
-    setGameInfo({ ...gameInfo, lineList: newLineList });
 
     if (currentFocus <= 4) {
       setCurrentFocus(+target.className.slice(-1) + 1);
     }
+
+    setWord(newWord);
   };
 
   return (
@@ -44,7 +38,7 @@ export function WordLine({ ...rest }: IWordLineProps) {
           // TODO fix the key
           key={Math.random()}
           onChangeLetter={handleChangeLetter}
-          word={gameInfo.lineList[+rest.line].word}
+          word={word}
           line={rest.line}
           letter={index}
           status={rest.status}
