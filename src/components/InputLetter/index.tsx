@@ -4,7 +4,7 @@ import tryWordContext from '../../context/tryWordContext';
 import { Input } from './styles';
 
 interface IInputLetterProps {
-  handleChangeWord: any;
+  onChangeLetter: any;
   line: string;
   status: string;
   isActive: boolean;
@@ -13,14 +13,14 @@ interface IInputLetterProps {
 }
 
 export function InputLetter({
-  handleChangeWord, line, status, isActive, word, letter,
+  onChangeLetter, line, status, isActive, word, letter,
 }: IInputLetterProps) {
   const { gameInfo } = useContext<any>(tryWordContext);
 
   return (
     <Input
       type="text"
-      onChange={handleChangeWord}
+      onChange={onChangeLetter}
       className={`${line}-${letter}`}
       value={status === 'answered' ? gameInfo.tries[+line][letter]?.letter : word[letter]}
       disabled={!isActive || status === 'answered'}

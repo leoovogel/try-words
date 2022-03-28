@@ -1,6 +1,6 @@
 import { Container, Content } from './styles';
 
-export default function index() {
+export function Header() {
   return (
     <Container>
       <Content>

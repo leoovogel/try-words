@@ -22,10 +22,10 @@ export function WordLine({ ...rest }: IWordLineProps) {
     }
   }, [currentFocus]);
 
-  const handleChangeWord = ({ target }: { target: HTMLInputElement }) => {
+  const handleChangeLetter = ({ target }: { target: HTMLInputElement }) => {
     const newWord = [...gameInfo.lineList[+rest.line].word];
     const letterIndex = +target.className.slice(-1);
-    newWord[letterIndex] = target.value[target.value.length - 1] || '';
+    newWord[letterIndex] = target.value.at(-1) || '';
 
     const newLineList = [...gameInfo.lineList];
     newLineList[+rest.line].word = newWord;
@@ -43,7 +43,7 @@ export function WordLine({ ...rest }: IWordLineProps) {
         <InputLetter
           // TODO fix the key
           key={Math.random()}
-          handleChangeWord={handleChangeWord}
+          onChangeLetter={handleChangeLetter}
           word={gameInfo.lineList[+rest.line].word}
           line={rest.line}
           letter={index}
