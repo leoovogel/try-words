@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
-  width: 80px;
-  height: 80px;
-  background-color: #4ff;
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--roxo-claro);
   border-radius: 10%;
-  line-height: 1rem;
   text-transform: uppercase;
   border: 0.125rem solid #444;
-  margin: 0.05rem;
   text-align: center;
   font-size: 3rem;
+  font-weight: 700;
+  caret-color: transparent;
+  cursor: pointer;
 
   transition: filter 0.2s;
 
@@ -19,7 +20,7 @@ export const Input = styled.input`
   }
 
   &:disabled{
-    background-color: #ddd;
+    background-color: var(--cinza1);
   }
 
   &:focus{

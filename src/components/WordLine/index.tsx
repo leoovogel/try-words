@@ -5,6 +5,7 @@ import {
 import { IWordLineProps } from '../../utils/types';
 import tryWordContext from '../../context/tryWordContext';
 import { InputLetter } from '../InputLetter';
+import { Line } from './styles';
 
 export function WordLine({ ...rest }: IWordLineProps) {
   const [currentFocus, setCurrentFocus] = useState(0);
@@ -37,7 +38,7 @@ export function WordLine({ ...rest }: IWordLineProps) {
   };
 
   return (
-    <div ref={lineElement}>
+    <Line ref={lineElement}>
       {rest.word.map((letter, index) => (
         <InputLetter
           handleChangeWord={handleChangeWord}
@@ -48,6 +49,6 @@ export function WordLine({ ...rest }: IWordLineProps) {
           isActive={rest.isActive}
         />
       ))}
-    </div>
+    </Line>
   );
 }

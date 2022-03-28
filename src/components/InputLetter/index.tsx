@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import tryWordContext from '../../context/tryWordContext';
-// import { Input } from './style';
+import { Input } from './styles';
 
 interface IInputLetterProps {
   handleChangeWord: any;
@@ -18,7 +18,7 @@ export function InputLetter({
   const { gameInfo } = useContext<any>(tryWordContext);
 
   return (
-    <input
+    <Input
       type="text"
       onChange={handleChangeWord}
       className={`${line}-${letter}`}
