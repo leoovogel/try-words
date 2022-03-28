@@ -21,6 +21,7 @@ export const Input = styled.input`
 
   &:disabled{
     background-color: var(--cinza1);
+    pointer-events: none;
   }
 
   &:focus{

@@ -41,6 +41,8 @@ export function WordLine({ ...rest }: IWordLineProps) {
     <Line ref={lineElement}>
       {rest.word.map((letter, index) => (
         <InputLetter
+          // TODO fix the key
+          key={Math.random()}
           handleChangeWord={handleChangeWord}
           word={gameInfo.lineList[+rest.line].word}
           line={rest.line}
