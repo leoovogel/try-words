@@ -1,11 +1,44 @@
+import { useContext, useEffect, useState } from 'react';
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import WordTable from '../components/WordTable';
 import { Header } from '../components/Header';
+import tryWordContext from '../context/tryWordContext';
+import GameResultModal from '../components/GameResultModal';
 
 export default function Home() {
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+  const { gameInfo } = useContext<any>(tryWordContext);
+  const { width, height } = useWindowSize();
+
+  useEffect(() => {
+    if (gameInfo.gameResult === 'win') setIsResultModalOpen(true);
+  }, [gameInfo.gameResult]);
+
+  const handleCloseModal = () => {
+    setIsResultModalOpen(false);
+  };
+
   return (
     <>
       <Header />
       <WordTable />
+      <ToastContainer position="top-center" />
+      { gameInfo.gameResult === 'win' && (
+        <>
+          <GameResultModal
+            isOpen={isResultModalOpen}
+            onRequestClose={handleCloseModal}
+          />
+          <Confetti
+            width={width}
+            height={height}
+          />
+        </>
+      )}
     </>
   );
 }

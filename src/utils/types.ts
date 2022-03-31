@@ -1,11 +1,6 @@
-import { Dispatch } from 'react';
-
 export interface IWordLineProps {
   line: string,
-  status: string,
-  isActive: boolean,
   word: string[],
-  setLines: Dispatch<any>
 }
 
 export interface ILineList {
@@ -23,4 +18,5 @@ export interface ITryObject {
 export interface IGameObject {
   lineList: ILineList[],
   tries: ITryObject[][],
+  gameResult: string,
 }

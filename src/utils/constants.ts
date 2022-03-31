@@ -21,5 +21,6 @@ export const game: IGameObject = {
       id: '5', status: 'next', isActive: false, word: ['', '', '', '', ''],
     },
   ],
-  tries: [[]],
+  tries: [],
+  gameResult: 'inProgress',
 };

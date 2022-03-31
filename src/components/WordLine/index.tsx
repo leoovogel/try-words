@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useContext, useEffect, useRef, useState,
+} from 'react';
+import tryWordContext from '../../context/tryWordContext';
 
 import { IWordLineProps } from '../../utils/types';
 import { InputLetter } from '../InputLetter';
@@ -7,11 +10,13 @@ import { Line } from './styles';
 export function WordLine({ ...rest }: IWordLineProps) {
   const [currentFocus, setCurrentFocus] = useState(0);
   const lineElement = useRef<HTMLDivElement>(null);
+  const { gameInfo, setCurrentTry } = useContext<any>(tryWordContext);
   const [word, setWord] = useState(['', '', '', '', '']);
 
   useEffect(() => {
     const prevFocusLetter = lineElement?.current?.children[currentFocus - 1] as HTMLInputElement;
     const focusLetter = lineElement?.current?.children[currentFocus] as HTMLInputElement;
+
     if (focusLetter) {
       focusLetter.focus();
     } else {
@@ -29,20 +34,20 @@ export function WordLine({ ...rest }: IWordLineProps) {
     }
 
     setWord(newWord);
+    setCurrentTry(newWord);
   };
 
   return (
     <Line ref={lineElement}>
       {rest.word.map((letter, index) => (
         <InputLetter
-          // TODO fix the key
           key={Math.random()}
           onChangeLetter={handleChangeLetter}
           word={word}
           line={rest.line}
           letter={index}
-          status={rest.status}
-          isActive={rest.isActive}
+          status={gameInfo.lineList[+rest.line].status}
+          isActive={gameInfo.lineList[+rest.line].isActive}
         />
       ))}
     </Line>
