@@ -1,7 +1,6 @@
 -- TODO
+- [ ] tests
 - [ ] review and refactor focus logic
 - [ ] document event listener logic
 - [ ] reset game function
-- [ ] words without special characters (~, ç, ã, õ, á, é, í, ó, ú)
-- [ ] keyboard
-- [ ] css
+- [ ] keyboard functionality

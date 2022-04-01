@@ -63,6 +63,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   };
 
   const setNewTry = () => {
+    console.log(currentTry);
     if (currentTry.length !== 5 || currentTry.includes('')) {
       toast.error('Apenas palavras com 5 caracteres');
       return;
@@ -83,10 +84,6 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     if (gameInfo.tries.length === 6) gameLose();
   }, [gameInfo.tries]);
 
-  const handlePressKeyDown = ({ key }: { key: string }) => {
-    if (key === 'Enter') setNewTry();
-  };
-
   useEffect(() => {
     const newRoundLineList = gameInfo.lineList.map(({ id, status, isActive }) => {
       const newLine = {
@@ -105,6 +102,14 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     setGameInfo({ ...gameInfo, lineList: newRoundLineList });
   }, [currentRound]);
 
+  const handlePressKeyDown = ({ key }: { key: string }) => {
+    if (key === 'Enter') setNewTry();
+  };
+
+  const handleKeyboardClick = ({ target }: any) => {
+    console.log(target.value);
+  };
+
   const value = React.useMemo(() => ({
     setNewTry,
     gameInfo,
@@ -114,7 +119,19 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     setRandomSolution,
     currentRound,
     handlePressKeyDown,
-  }), [gameInfo, currentTry, solution, currentRound]);
+    handleKeyboardClick,
+  }), [
+    solution,
+    setNewTry,
+    gameInfo,
+    setGameInfo,
+    currentTry,
+    setCurrentTry,
+    setRandomSolution,
+    currentRound,
+    handlePressKeyDown,
+    handleKeyboardClick,
+  ]);
 
   return (
     <tryWordContext.Provider
