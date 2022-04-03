@@ -25,7 +25,9 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   };
 
   const gameLose = () => {
-    toast.error(`You lose! Correct answer: ${solution}`);
+    // toast.error(`You lose! Correct answer: ${solution}`);
+    console.log(gameInfo.gameResult);
+    setGameInfo({ ...gameInfo, gameResult: 'lose' });
   };
 
   const nextRound = () => {

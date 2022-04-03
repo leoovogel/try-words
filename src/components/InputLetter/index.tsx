@@ -21,10 +21,11 @@ export function InputLetter({
     <Input
       type="text"
       onChange={onChangeLetter}
-      className={`${line}-${letter}`}
+      className={`${gameInfo.tries?.[+line]?.[letter]?.state} ${line}-${letter}`}
       value={status === 'answered' ? gameInfo.tries[+line][letter]?.letter : word[letter]}
       disabled={!isActive || status === 'answered'}
       onClick={({ target }: any) => target.setSelectionRange(1, 1)}
+      // status={gameInfo.tries?.[+line]?.[letter]?.status}
     />
   );
 }

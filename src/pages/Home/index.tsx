@@ -18,6 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     if (gameInfo.gameResult === 'win') setIsResultModalOpen(true);
+    if (gameInfo.gameResult === 'lose') setIsResultModalOpen(true);
   }, [gameInfo.gameResult]);
 
   const handleCloseModal = () => {
@@ -30,17 +31,15 @@ export default function Home() {
       <WordTable />
       <Keyboard />
       <ToastContainer position="top-center" />
+      <GameResultModal
+        isOpen={isResultModalOpen}
+        onRequestClose={handleCloseModal}
+      />
       { gameInfo.gameResult === 'win' && (
-        <>
-          <GameResultModal
-            isOpen={isResultModalOpen}
-            onRequestClose={handleCloseModal}
-          />
-          <Confetti
-            width={width}
-            height={height}
-          />
-        </>
+        <Confetti
+          width={width}
+          height={height}
+        />
       )}
     </Main>
   );
