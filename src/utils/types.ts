@@ -1,6 +1,7 @@
 export interface IWordLineProps {
   line: string,
   word: string[],
+  isActive: boolean;
 }
 
 export interface ILineList {

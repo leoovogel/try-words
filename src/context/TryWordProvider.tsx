@@ -104,9 +104,12 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     setGameInfo({ ...gameInfo, lineList: newRoundLineList });
   }, [currentRound]);
 
-  const handlePressKeyDown = ({ key }: { key: string }) => {
-    if (key === 'Enter') setNewTry();
-  };
+  function handlePressKeyDown(event: any) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setNewTry();
+    }
+  }
 
   const handleKeyboardClick = ({ target }: any) => {
     console.log(target.value);

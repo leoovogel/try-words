@@ -14,6 +14,7 @@ export default function wordTable() {
     <Container>
       {gameInfo.lineList.map((line: ILineList) => (
         <WordLine
+          isActive={line.isActive}
           key={line.id}
           line={line.id}
           word={line.word}

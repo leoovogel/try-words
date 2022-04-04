@@ -2,13 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import tryWordContext from '../../context/tryWordContext';
 
 function EventListener({ children }: { children: React.ReactNode }) {
-  const { handlePressKeyDown } = useContext<any>(tryWordContext);
+  const { handlePressKeyDown, currentTry } = useContext<any>(tryWordContext);
 
   useEffect(() => {
-    document.addEventListener('keydown', handlePressKeyDown);
+    document.body.addEventListener('keydown', handlePressKeyDown);
 
-    return () => document.removeEventListener('keydown', handlePressKeyDown);
-  }, []);
+    return () => document.body.removeEventListener('keydown', handlePressKeyDown);
+  }, [currentTry]);
 
   return (
     <div>
