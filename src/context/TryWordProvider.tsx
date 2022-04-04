@@ -20,13 +20,10 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   // };
 
   const gameWin = () => {
-    // toast.success('You win!');
     setGameInfo({ ...gameInfo, gameResult: 'win' });
   };
 
   const gameLose = () => {
-    // toast.error(`You lose! Correct answer: ${solution}`);
-    console.log(gameInfo.gameResult);
     setGameInfo({ ...gameInfo, gameResult: 'lose' });
   };
 
@@ -44,6 +41,8 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     console.log(solution);
     const solutionArray = solution.split('');
 
+    const wrongLetters = [...gameInfo.wrongLetters];
+
     const newTry = currentTry.map((letter, index) => {
       const feedbackReturn = { letter, state: '' };
       const letterUp = letter.toUpperCase();
@@ -54,18 +53,18 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
         feedbackReturn.state = 'displaced';
       } else {
         feedbackReturn.state = 'wrong';
+        wrongLetters.push(letter);
       }
       return feedbackReturn;
     });
 
-    setGameInfo({ ...gameInfo, tries: [...gameInfo.tries, newTry] });
+    setGameInfo({ ...gameInfo, tries: [...gameInfo.tries, newTry], wrongLetters });
     if (newTry.some(({ state }) => state !== 'right') && gameInfo.tries.length < 6) {
       nextRound();
     }
   };
 
   const setNewTry = () => {
-    console.log(currentTry);
     if (currentTry.length !== 5 || currentTry.includes('')) {
       toast.error('Apenas palavras com 5 caracteres');
       return;

@@ -22,5 +22,6 @@ export interface ITryObject {
 export interface IGameObject {
   lineList: ILineList[],
   tries: ITryObject[][],
+  wrongLetters: string[],
   gameResult: string,
 }

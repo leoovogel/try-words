@@ -16,16 +16,19 @@ export const ContainerLetter = styled.button`
   border-radius: 0.5rem;
   border: none;
 
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 
   & + button {
     margin-left: 0.5rem;
   }
 
-  &:disabled {
-  }
-
   &:hover {
     filter: brightness(0.9);
   }
+
+  &:disabled {
+    background-color: var(--cinza1);
+    pointer-events: none;
+  }
+
 `;

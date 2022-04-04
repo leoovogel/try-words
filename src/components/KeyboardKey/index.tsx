@@ -7,7 +7,7 @@ interface KeyboardKeyProps {
 }
 
 export default function KeyboardKey({ lineLetter }: KeyboardKeyProps) {
-  const { setNewTry, handleKeyboardClick } = useContext<any>(tryWordContext);
+  const { gameInfo, setNewTry, handleKeyboardClick } = useContext<any>(tryWordContext);
 
   return (
     <ContainerLine>
@@ -16,6 +16,7 @@ export default function KeyboardKey({ lineLetter }: KeyboardKeyProps) {
           key={Math.random()}
           value={key}
           onClick={key === 'Enter' ? setNewTry : handleKeyboardClick}
+          disabled={gameInfo.wrongLetters.includes(key.toLowerCase())}
         >
           {key}
         </ContainerLetter>

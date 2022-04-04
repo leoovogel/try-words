@@ -22,6 +22,7 @@ export const game: IGameObject = {
     },
   ],
   tries: [],
+  wrongLetters: [],
   gameResult: 'inProgress',
 };
 
