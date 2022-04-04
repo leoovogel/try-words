@@ -7,22 +7,25 @@ import { IWordLineProps } from '../../utils/types';
 import { InputLetter } from '../InputLetter';
 import { Line } from './styles';
 
-export function WordLine({ isActive, ...rest }: IWordLineProps) {
+export function WordLine({
+  isActive, word, setWord, ...rest
+}: IWordLineProps) {
   const [currentFocus, setCurrentFocus] = useState(-1);
   const lineElement = useRef<HTMLDivElement>(null);
   const { gameInfo, setCurrentTry } = useContext<any>(tryWordContext);
-  const [word, setWord] = useState(['', '', '', '', '']);
 
   function handleKeyPress({ key }: any) {
     if (key === 'Backspace' && isActive) {
       const newWord = [...word];
 
-      if (word[currentFocus] !== '') {
+      if (word[currentFocus]) {
         newWord[currentFocus] = '';
         setCurrentFocus(currentFocus - 1);
       } else if (currentFocus > 0) {
         newWord.splice(currentFocus - 1, 1, '');
         setCurrentFocus(currentFocus);
+      } else if (word.every((letter) => letter)) {
+        newWord[4] = '';
       }
 
       setWord(newWord);
@@ -38,14 +41,10 @@ export function WordLine({ isActive, ...rest }: IWordLineProps) {
   useEffect(() => {
     if (!isActive) return;
     if (currentFocus > -1) {
-      const prevFocusLetter = lineElement?.current
-        ?.children[currentFocus - 1] as HTMLInputElement;
       const focusLetter = lineElement?.current?.children[currentFocus] as HTMLInputElement;
 
       if (focusLetter) {
         focusLetter.focus();
-      } else {
-        prevFocusLetter.blur();
       }
     }
   }, [currentFocus, isActive]);
@@ -69,7 +68,7 @@ export function WordLine({ isActive, ...rest }: IWordLineProps) {
 
   return (
     <Line ref={lineElement}>
-      {rest.word.map((letter, index) => (
+      {word.map((letter, index) => (
         <InputLetter
           key={Math.random()}
           onChangeLetter={handleChangeLetter}

@@ -1,6 +1,9 @@
+import React, { Dispatch } from 'react';
+
 export interface IWordLineProps {
   line: string,
   word: string[],
+  setWord: Dispatch<React.SetStateAction<string[]>>
   isActive: boolean;
 }
 
