@@ -8,7 +8,7 @@ import { Header } from '../../components/Header';
 import tryWordContext from '../../context/tryWordContext';
 import GameResultModal from '../../components/GameResultModal';
 import Keyboard from '../../components/Keyboard';
-import { Main } from './styles';
+import { Container, Main } from './styles';
 import { WordLine } from '../../components/WordLine';
 import { ILineList } from '../../utils/types';
 
@@ -36,16 +36,17 @@ export default function Home() {
   return (
     <Main>
       <Header />
-
-      {gameInfo.lineList.map((line: ILineList) => (
-        <WordLine
-          isActive={line.isActive}
-          key={line.id}
-          line={line.id}
-          word={line.isActive ? word : ['', '', '', '', '']}
-          setWord={setWord}
-        />
-      ))}
+      <Container>
+        {gameInfo.lineList.map((line: ILineList) => (
+          <WordLine
+            isActive={line.isActive}
+            key={line.id}
+            line={line.id}
+            word={line.isActive ? word : ['', '', '', '', '']}
+            setWord={setWord}
+          />
+        ))}
+      </Container>
       <Keyboard />
       <ToastContainer position="top-center" />
       <GameResultModal
