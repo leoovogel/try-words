@@ -10,10 +10,11 @@ interface IInputLetterProps {
   isActive: boolean;
   word: string[];
   letter: number;
+  onFocus: () => void;
 }
 
 export function InputLetter({
-  onChangeLetter, line, status, isActive, word, letter,
+  onChangeLetter, line, status, isActive, word, letter, onFocus,
 }: IInputLetterProps) {
   const { gameInfo } = useContext<any>(tryWordContext);
 
@@ -26,6 +27,7 @@ export function InputLetter({
       disabled={!isActive || status === 'answered'}
       onClick={({ target }: any) => target.setSelectionRange(1, 1)}
       // status={gameInfo.tries?.[+line]?.[letter]?.status}
+      onFocus={onFocus}
     />
   );
 }

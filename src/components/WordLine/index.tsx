@@ -13,6 +13,28 @@ export function WordLine({ isActive, ...rest }: IWordLineProps) {
   const { gameInfo, setCurrentTry } = useContext<any>(tryWordContext);
   const [word, setWord] = useState(['', '', '', '', '']);
 
+  function handleKeyPress({ key }: any) {
+    if (key === 'Backspace' && isActive) {
+      const newWord = [...word];
+
+      if (word[currentFocus] !== '') {
+        newWord[currentFocus] = '';
+        setCurrentFocus(currentFocus - 1);
+      } else if (currentFocus > 0) {
+        newWord.splice(currentFocus - 1, 1, '');
+        setCurrentFocus(currentFocus);
+      }
+
+      setWord(newWord);
+    }
+  }
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', handleKeyPress);
+
+    return () => document.body.removeEventListener('keydown', handleKeyPress);
+  }, [word, currentFocus]);
+
   useEffect(() => {
     if (!isActive) return;
     if (currentFocus > -1) {
@@ -32,14 +54,14 @@ export function WordLine({ isActive, ...rest }: IWordLineProps) {
     setCurrentFocus(0);
   }, [isActive]);
 
+  useEffect(() => {
+    setCurrentFocus(word.findIndex((letter) => !letter));
+  }, [word]);
+
   const handleChangeLetter = ({ target }: { target: HTMLInputElement }) => {
     const newWord = [...word];
     const letterIndex = +target.className.slice(-1);
     newWord[letterIndex] = target.value.at(-1) || '';
-
-    if (currentFocus <= 4) {
-      setCurrentFocus(+target.className.slice(-1) + 1);
-    }
 
     setWord(newWord);
     setCurrentTry(newWord);
@@ -56,6 +78,7 @@ export function WordLine({ isActive, ...rest }: IWordLineProps) {
           letter={index}
           status={gameInfo.lineList[+rest.line].status}
           isActive={gameInfo.lineList[+rest.line].isActive}
+          onFocus={() => setCurrentFocus(index)}
         />
       ))}
     </Line>
