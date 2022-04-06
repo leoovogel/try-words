@@ -1,20 +1,19 @@
 import {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useRef,
 } from 'react';
 import tryWordContext from '../../context/tryWordContext';
 
-import { IWordLineProps } from '../../utils/types';
+import { IWordLineProps, TryWordContext } from '../../utils/types';
 import { InputLetter } from '../InputLetter';
 import { Line } from './styles';
 
 export function WordLine({
-  isActive, word, setWord, ...rest
+  isActive, word, setWord, currentFocus, setCurrentFocus, ...rest
 }: IWordLineProps) {
-  const [currentFocus, setCurrentFocus] = useState(-1);
   const lineElement = useRef<HTMLDivElement>(null);
-  const { gameInfo, setCurrentTry } = useContext<any>(tryWordContext);
+  const { gameInfo, setCurrentTry } = useContext<TryWordContext>(tryWordContext);
 
-  function handleKeyPress({ key }: any) {
+  function handleKeyPress({ key }: KeyboardEvent) {
     if (key === 'Backspace' && isActive) {
       const newWord = [...word];
 
@@ -54,7 +53,9 @@ export function WordLine({
   }, [isActive]);
 
   useEffect(() => {
-    setCurrentFocus(word.findIndex((letter) => !letter));
+    if (isActive) {
+      setCurrentFocus(word.findIndex((letter) => !letter));
+    }
   }, [word]);
 
   const handleChangeLetter = ({ target }: { target: HTMLInputElement }) => {

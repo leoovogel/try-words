@@ -1,59 +1,60 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
-    },
-    "extends": [
-        "plugin:react/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript",
-        "airbnb"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "import",
-        "@typescript-eslint"
-    ],
-    "settings": {
-        "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx", ".ts", ".tsx"]
-          }
-        }
+  "env": {
+      "browser": true,
+      "es2021": true,
+      "jest": true
+  },
+  "extends": [
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript",
+      "airbnb",
+      "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
       },
-    "rules": {
-        "quotes": [2, "single"],
-        "semi": [2, "always"],
-        "react/react-in-jsx-scope": "off",
-        "import/extensions": [
-            "error",
-            "ignorePackages",
-            {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
-            }
-         ],
-        "react/jsx-filename-extension": [
-            "error",
-            {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        ],
-        "global-require": "off",
-        "import/prefer-default-export": "off",
-        "no-unused-expressions": ["error", { "allowTaggedTemplates": true }]
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+  },
+  "plugins": [
+      "react",
+      "jsx-a11y",
+      "import",
+      "@typescript-eslint"
+  ],
+  "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        }
       }
+    },
+  "rules": {
+      "quotes": [2, "single"],
+      "semi": [2, "always"],
+      "react/react-in-jsx-scope": "off",
+      "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+       ],
+      "react/jsx-filename-extension": [
+          "error",
+          {
+              "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+      ],
+      "global-require": "off",
+      "import/prefer-default-export": "off"
+      // "no-unused-expressions": ["error", { "allowTaggedTemplates": true }]
+    }
 }

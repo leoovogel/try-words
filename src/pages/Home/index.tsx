@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
 import { ToastContainer } from 'react-toastify';
@@ -10,28 +10,37 @@ import GameResultModal from '../../components/GameResultModal';
 import Keyboard from '../../components/Keyboard';
 import { Container, Main } from './styles';
 import { WordLine } from '../../components/WordLine';
-import { ILineList } from '../../utils/types';
+import { ILineList, TryWordContext } from '../../utils/types';
 
 export default function Home() {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
-  const { gameInfo, setRandomSolution } = useContext<any>(tryWordContext);
+  const { gameInfo, setRandomSolution, setCurrentTry } = useContext<TryWordContext>(tryWordContext);
   const { width, height } = useWindowSize();
   const [word, setWord] = useState(['', '', '', '', '']);
+  const [currentFocus, setCurrentFocus] = useState(-1);
 
-  useEffect(() => {
-    setWord(['', '', '', '', '']);
-  }, [gameInfo.lineList]);
+  useEffect(() => setWord(['', '', '', '', '']), [gameInfo.lineList]);
+
+  useEffect(() => setRandomSolution(), []);
 
   useEffect(() => {
     if (gameInfo.gameResult === 'win') setIsResultModalOpen(true);
     if (gameInfo.gameResult === 'lose') setIsResultModalOpen(true);
   }, [gameInfo.gameResult]);
 
-  const handleCloseModal = () => {
-    setIsResultModalOpen(false);
-  };
+  const handleCloseModal = () => setIsResultModalOpen(false);
 
-  useEffect(() => setRandomSolution(), []);
+  const handleKeyboardClick = ({ target }: React.MouseEvent) => {
+    const newWord = [...word];
+    if ((target as HTMLDivElement).innerText === '<-') {
+      newWord[currentFocus - 1] = '';
+    } else {
+      newWord[currentFocus] = (target as HTMLDivElement).innerText;
+    }
+
+    setCurrentTry(newWord);
+    setWord(newWord);
+  };
 
   return (
     <Main>
@@ -39,15 +48,18 @@ export default function Home() {
       <Container>
         {gameInfo.lineList.map((line: ILineList) => (
           <WordLine
-            isActive={line.isActive}
             key={line.id}
+            isActive={line.isActive}
             line={line.id}
             word={line.isActive ? word : ['', '', '', '', '']}
             setWord={setWord}
+            currentFocus={currentFocus}
+            setCurrentFocus={setCurrentFocus}
           />
         ))}
       </Container>
-      <Keyboard />
+      <Keyboard onKeyboardClick={handleKeyboardClick} />
+      {/* <Keyboard /> */}
       <ToastContainer position="top-center" />
       <GameResultModal
         isOpen={isResultModalOpen}
