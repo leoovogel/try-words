@@ -1,6 +1,6 @@
 -- TODO
-- [ ] tests
-- [ ] review and refactor focus logic
-- [ ] document event listener logic
-- [ ] reset game function
-- [ ] keyboard functionality
+- [ ] Corrigir problemas de foco
+- [ ] Botão pra resetar o game
+- [ ] Estatisticas reais
+- [ ] Backspace do teclado virtual
+- [ ] Responsividade
