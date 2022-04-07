@@ -17,7 +17,8 @@ export default function KeyboardKey({ lineLetter, onKeyboardClick }: KeyboardKey
         <ContainerLetter
           key={Math.random()}
           onClick={key === 'Enter' ? validateTry : onKeyboardClick}
-          disabled={gameInfo.wrongLetters.includes(key.toLowerCase())}
+          disabled={gameInfo.wrongLetters
+            .some((letter) => letter.toLowerCase() === key.toLowerCase())}
         >
           {key}
         </ContainerLetter>
