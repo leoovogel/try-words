@@ -34,6 +34,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
 
   const setRandomSolution = () => {
     const randomSolutionIndex = Math.floor(Math.random() * WORD_LIST.length);
+    console.log(WORD_LIST[randomSolutionIndex]);
     setSolution(WORD_LIST[randomSolutionIndex]);
   };
 
