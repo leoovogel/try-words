@@ -46,6 +46,7 @@ export default function GameResultModal({ isOpen, onRequestClose }: GameResultMo
           </div>
         </div>
         <img src={gameInfo.gameResult === 'win' ? GIF_WIN : GIF_LOSE} alt="win" />
+        <button type="button" onClick={() => window.location.reload()}>Novo jogo</button>
       </Container>
     </Modal>
   );

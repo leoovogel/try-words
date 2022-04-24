@@ -12,13 +12,6 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   const [solution, setSolution] = useState<string>('');
   const [currentRound, setCurrentRound] = useState<number>(0);
 
-  // const resetGame = () => {
-  //   setGameInfo(game);
-  //   setCurrentTry([]);
-  //   setSolution('');
-  //   setCurrentRound(0);
-  // };
-
   const gameWin = () => {
     setGameInfo({ ...gameInfo, gameResult: 'win' });
   };
@@ -33,11 +26,6 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   };
 
   const setRandomSolution = () => {
-    POSSIBLE_SOLUTIONS.forEach((word) => {
-      if (!WORDS_LIST.includes(word)) {
-        console.log(word);
-      }
-    });
     const randomSolutionIndex = Math.floor(Math.random() * POSSIBLE_SOLUTIONS.length);
     console.log(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
     setSolution(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
