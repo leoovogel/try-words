@@ -13,7 +13,6 @@ export interface ILineList {
   id: string,
   status: string,
   isActive: boolean,
-  word: string[],
 }
 
 export interface ITryObject {
