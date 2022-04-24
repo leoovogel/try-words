@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { IGameObject } from '../utils/types';
 import tryWordContext from './tryWordContext';
 import { game } from '../utils/constants';
-import { WORD_LIST } from '../utils/wordList';
+import { WORDS_LIST, POSSIBLE_SOLUTIONS } from '../utils/wordList';
 
 export function TryWordProvider({ children }: { children: React.ReactNode }) {
   const [gameInfo, setGameInfo] = useState<IGameObject>(game);
@@ -33,9 +33,14 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   };
 
   const setRandomSolution = () => {
-    const randomSolutionIndex = Math.floor(Math.random() * WORD_LIST.length);
-    console.log(WORD_LIST[randomSolutionIndex]);
-    setSolution(WORD_LIST[randomSolutionIndex]);
+    POSSIBLE_SOLUTIONS.forEach((word) => {
+      if (!WORDS_LIST.includes(word)) {
+        console.log(word);
+      }
+    });
+    const randomSolutionIndex = Math.floor(Math.random() * POSSIBLE_SOLUTIONS.length);
+    console.log(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
+    setSolution(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
   };
 
   const checkTry = () => {
@@ -69,7 +74,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
       toast.error('Apenas palavras com 5 caracteres');
       return;
     }
-    if (!WORD_LIST.includes(currentTry.join('').toUpperCase())) {
+    if (!WORDS_LIST.includes(currentTry.join('').toUpperCase())) {
       toast.error('Tente alguma palavra válida');
       return;
     }
