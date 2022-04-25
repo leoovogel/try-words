@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
-import { IGameObject } from '../utils/types';
+import { IGameObject, IStorageStatistics } from '../utils/types';
 import tryWordContext from './tryWordContext';
 import { game, INITIAL_STATISTICS } from '../utils/constants';
 import { WORDS_LIST, POSSIBLE_SOLUTIONS } from '../utils/wordList';
@@ -12,7 +12,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
   const [currentTry, setCurrentTry] = useState<string[]>([]);
   const [solution, setSolution] = useState<string>('');
   const [currentRound, setCurrentRound] = useState<number>(0);
-  const [storageStatistics, setStorageStatistics] = useLocalStorage('statistics', INITIAL_STATISTICS);
+  const [storageStatistics, setStorageStatistics] = useLocalStorage<IStorageStatistics>('statistics', INITIAL_STATISTICS);
 
   const setLocalStorageStatistics = (gameResult: string) => {
     const {
@@ -141,6 +141,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     setRandomSolution,
     currentRound,
     handlePressKeyDown,
+    storageStatistics,
   }), [
     solution,
     validateTry,
@@ -151,6 +152,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     setRandomSolution,
     currentRound,
     handlePressKeyDown,
+    storageStatistics,
   ]);
 
   return (

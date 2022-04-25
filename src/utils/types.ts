@@ -27,7 +27,15 @@ export interface IGameObject {
   gameResult: string,
 }
 
+export interface IStorageStatistics {
+  games: number,
+  wins: number,
+  winStreak: number,
+  bestWinStreak: number,
+}
+
 export interface TryWordContext {
+  storageStatistics: IStorageStatistics;
   validateTry: () => void;
   gameInfo: IGameObject;
   setGameInfo: Dispatch<SetStateAction<IGameObject>>;
