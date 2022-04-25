@@ -3,20 +3,49 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { IGameObject } from '../utils/types';
 import tryWordContext from './tryWordContext';
-import { game } from '../utils/constants';
+import { game, INITIAL_STATISTICS } from '../utils/constants';
 import { WORDS_LIST, POSSIBLE_SOLUTIONS } from '../utils/wordList';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export function TryWordProvider({ children }: { children: React.ReactNode }) {
   const [gameInfo, setGameInfo] = useState<IGameObject>(game);
   const [currentTry, setCurrentTry] = useState<string[]>([]);
   const [solution, setSolution] = useState<string>('');
   const [currentRound, setCurrentRound] = useState<number>(0);
+  const [storageStatistics, setStorageStatistics] = useLocalStorage('statistics', INITIAL_STATISTICS);
+
+  const setLocalStorageStatistics = (gameResult: string) => {
+    const {
+      games, wins, winStreak, bestWinStreak,
+    } = storageStatistics;
+
+    let newStatistics = { ...storageStatistics };
+
+    if (gameResult === 'win') {
+      newStatistics = {
+        games: games + 1 || 1,
+        wins: wins + 1 || 1,
+        winStreak: winStreak + 1 || 1,
+        bestWinStreak: (winStreak + 1 > bestWinStreak ? winStreak + 1 : bestWinStreak) || 1,
+      };
+    } else {
+      newStatistics = {
+        games: games + 1 || 0,
+        wins,
+        winStreak: 0,
+        bestWinStreak,
+      };
+    }
+    setStorageStatistics(newStatistics);
+  };
 
   const gameWin = () => {
+    setLocalStorageStatistics('win');
     setGameInfo({ ...gameInfo, gameResult: 'win' });
   };
 
   const gameLose = () => {
+    setLocalStorageStatistics('lose');
     setGameInfo({ ...gameInfo, gameResult: 'lose' });
   };
 
