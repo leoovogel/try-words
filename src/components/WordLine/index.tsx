@@ -49,7 +49,7 @@ export function WordLine({
   }, [currentFocus, isActive]);
 
   useEffect(() => {
-    setCurrentFocus(0);
+    setCurrentFocus(-1);
   }, [isActive]);
 
   useEffect(() => {
