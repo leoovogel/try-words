@@ -5,7 +5,8 @@ import tryWordContext from '../../context/tryWordContext';
 import { TryWordContext } from '../../utils/types';
 import { Container } from './styles';
 
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 interface GameResultModalProps {
   isOpen: boolean;
