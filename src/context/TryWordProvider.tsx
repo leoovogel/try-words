@@ -6,12 +6,13 @@ import tryWordContext from './tryWordContext';
 import { game, INITIAL_STATISTICS } from '../utils/constants';
 import { WORDS_LIST, POSSIBLE_SOLUTIONS } from '../utils/wordList';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { checkCurrentTry } from '../helpers/checkTry';
 
 export function TryWordProvider({ children }: { children: React.ReactNode }) {
   const [gameInfo, setGameInfo] = useState<IGameObject>(game);
   const [currentTry, setCurrentTry] = useState<string[]>([]);
-  const [solution, setSolution] = useState<string>('');
   const [currentRound, setCurrentRound] = useState<number>(0);
+  const [storageSolution, setStorageSolution] = useLocalStorage<string>('solution', '');
   const [storageStatistics, setStorageStatistics] = useLocalStorage<IStorageStatistics>('statistics', INITIAL_STATISTICS);
 
   const setLocalStorageStatistics = (gameResult: string) => {
@@ -56,29 +57,11 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
 
   const setRandomSolution = () => {
     const randomSolutionIndex = Math.floor(Math.random() * POSSIBLE_SOLUTIONS.length);
-    console.log(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
-    setSolution(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
+    setStorageSolution(POSSIBLE_SOLUTIONS[randomSolutionIndex]);
   };
 
-  const checkTry = () => {
-    const solutionArray = solution.split('');
-
-    const wrongLetters = [...gameInfo.wrongLetters];
-
-    const newTry = currentTry.map((letter, index) => {
-      const feedbackReturn = { letter, state: '' };
-      const letterUp = letter.toUpperCase();
-
-      if (letterUp === solutionArray[index]) {
-        feedbackReturn.state = 'right';
-      } else if (solutionArray.includes(letterUp)) {
-        feedbackReturn.state = 'displaced';
-      } else {
-        feedbackReturn.state = 'wrong';
-        wrongLetters.push(letter);
-      }
-      return feedbackReturn;
-    });
+  const checkTry = (solution: string, curTry: string[]) => {
+    const { newTry, wrongLetters } = checkCurrentTry(solution, curTry, gameInfo);
 
     setGameInfo({ ...gameInfo, tries: [...gameInfo.tries, newTry], wrongLetters });
     if (newTry.some(({ state }) => state !== 'right') && gameInfo.tries.length < 6) {
@@ -96,7 +79,7 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    checkTry();
+    checkTry(storageSolution, currentTry);
   };
 
   useEffect(() => {
@@ -142,8 +125,9 @@ export function TryWordProvider({ children }: { children: React.ReactNode }) {
     currentRound,
     handlePressKeyDown,
     storageStatistics,
+    storageSolution,
   }), [
-    solution,
+    storageSolution,
     validateTry,
     gameInfo,
     setGameInfo,

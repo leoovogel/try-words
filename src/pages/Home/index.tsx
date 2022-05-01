@@ -14,14 +14,18 @@ import { ILineList, TryWordContext } from '../../utils/types';
 
 export default function Home() {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
-  const { gameInfo, setRandomSolution, setCurrentTry } = useContext<TryWordContext>(tryWordContext);
+  const {
+    gameInfo, setRandomSolution, setCurrentTry, storageSolution,
+  } = useContext<TryWordContext>(tryWordContext);
   const { width, height } = useWindowSize();
   const [word, setWord] = useState(['', '', '', '', '']);
   const [currentFocus, setCurrentFocus] = useState(-1);
 
   useEffect(() => setWord(['', '', '', '', '']), [gameInfo.lineList]);
 
-  useEffect(() => setRandomSolution(), []);
+  useEffect(() => {
+    if (storageSolution === '') setRandomSolution();
+  }, []);
 
   useEffect(() => {
     if (gameInfo.gameResult === 'win') setIsResultModalOpen(true);
@@ -59,7 +63,6 @@ export default function Home() {
         ))}
       </Container>
       <Keyboard onKeyboardClick={handleKeyboardClick} />
-      {/* <Keyboard /> */}
       <ToastContainer position="top-center" />
       <GameResultModal
         isOpen={isResultModalOpen}

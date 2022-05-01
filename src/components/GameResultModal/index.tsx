@@ -17,7 +17,9 @@ const GIF_WIN = 'https://c.tenor.com/rO6Fh2KNm3sAAAAd/baby-yes.gif';
 const GIF_LOSE = 'https://c.tenor.com/58rVrcSfwCcAAAAM/panda-oh-no.gif';
 
 export default function GameResultModal({ isOpen, onRequestClose }: GameResultModalProps) {
-  const { gameInfo, storageStatistics } = useContext<TryWordContext>(tryWordContext);
+  const {
+    gameInfo, storageStatistics, setRandomSolution,
+  } = useContext<TryWordContext>(tryWordContext);
 
   return (
     <Modal
@@ -46,8 +48,20 @@ export default function GameResultModal({ isOpen, onRequestClose }: GameResultMo
             <p>{ storageStatistics.bestWinStreak }</p>
           </div>
         </div>
-        <img src={gameInfo.gameResult === 'win' ? GIF_WIN : GIF_LOSE} alt="win" />
-        <button type="button" onClick={() => window.location.reload()}>Novo jogo</button>
+        <img
+          src={gameInfo.gameResult === 'win' ? GIF_WIN : GIF_LOSE}
+          alt={gameInfo.gameResult === 'win' ? 'win' : 'lose'}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            setRandomSolution();
+            window.location.reload();
+          }}
+        >
+          Novo jogo
+
+        </button>
       </Container>
     </Modal>
   );

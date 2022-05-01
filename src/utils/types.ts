@@ -35,6 +35,7 @@ export interface IStorageStatistics {
 }
 
 export interface TryWordContext {
+  storageSolution: string;
   storageStatistics: IStorageStatistics;
   validateTry: () => void;
   gameInfo: IGameObject;
