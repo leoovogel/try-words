@@ -6,8 +6,6 @@ Minha meta era terminar o projeto até o último dia do módulo de front-end, me
 
 Próximos passos:
 
-- [ ] Implementar estatísticas reais;
 - [ ] Arrumar o bug do backspace do teclado virtual, ao tentar apagar a última letra;
 - [ ] Melhorar a estilização do projeto;
-- [ ] Desenvolver testes para a aplicação;
 - [ ] Tornar a aplicação responsiva.
