@@ -17,6 +17,11 @@ export const ContainerLetter = styled.button`
   border: none;
 
   font-size: 1.8rem;
+  
+  @media (max-width: 480px) {
+    width: ${({ children }) => (children === 'Enter' ? 12 : 4.5)}rem;
+    height: 7rem;
+  }
 
   & + button {
     margin-left: 0.5rem;

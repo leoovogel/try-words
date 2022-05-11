@@ -16,6 +16,11 @@ export const Input = styled.input`
 
   transition: filter 0.2s;
 
+  @media (max-width: 480px) {
+    width: 7rem;
+    height: 7rem;
+  }
+
   &:hover {
     filter: brightness(0.9);
   }

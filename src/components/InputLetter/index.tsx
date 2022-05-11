@@ -28,6 +28,7 @@ export function InputLetter({
       disabled={!isActive || status === 'answered'}
       onClick={(event) => (event.target as HTMLInputElement).setSelectionRange(1, 1)}
       onFocus={onFocus}
+      inputMode="none"
     />
   );
 }
