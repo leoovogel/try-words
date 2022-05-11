@@ -47,14 +47,14 @@ export const Container = styled.div`
     height: 50px;
     border-radius: 5px;
     border: none;
-    background: #ff9000;
+    background: #309E76;
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
     transition: background-color 0.2s;
 
     &:hover {
-      filter: brightness(0.9);
+      filter: brightness(1.2);
     }
   }
 `;
