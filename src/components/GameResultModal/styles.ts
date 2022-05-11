@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #fff;
 
   h1 {
     font-size: 2.5rem;
@@ -19,6 +20,18 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 7rem;
+      margin: 0 auto;
+      text-shadow: 2px 2px 5px #aaa;
+
+      p {
+        font-size: 1rem;
+        text-align: center;
+
+        &:first-child {
+          font-size: 4rem;
+        }
+      }
     }
   }
 

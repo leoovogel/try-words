@@ -2,19 +2,16 @@ import { useContext } from 'react';
 import Modal from 'react-modal';
 
 import tryWordContext from '../../context/tryWordContext';
+import { GIF_LOSE, GIF_WIN } from '../../utils/constants';
 import { TryWordContext } from '../../utils/types';
 import { Container } from './styles';
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
-// Modal.setAppElement('#root');
 
 interface GameResultModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
 }
-
-const GIF_WIN = 'https://c.tenor.com/rO6Fh2KNm3sAAAAd/baby-yes.gif';
-const GIF_LOSE = 'https://c.tenor.com/58rVrcSfwCcAAAAM/panda-oh-no.gif';
 
 export default function GameResultModal({ isOpen, onRequestClose }: GameResultModalProps) {
   const {
@@ -29,23 +26,25 @@ export default function GameResultModal({ isOpen, onRequestClose }: GameResultMo
       className="react-modal-content"
     >
       <Container>
-        <h1>Estatísticas</h1>
+        <h1>
+          {gameInfo.gameResult === 'win' ? 'Parabéns, você acertou :D' : 'Tente novamente :/'}
+        </h1>
         <div>
           <div>
-            <p>Jogos</p>
             <p>{ storageStatistics.games }</p>
+            <p>Jogos</p>
           </div>
           <div>
-            <p>Vitórias</p>
             <p>{ storageStatistics.wins }</p>
+            <p>Vitórias</p>
           </div>
           <div>
-            <p>Sequência</p>
             <p>{ storageStatistics.winStreak }</p>
+            <p>Sequência</p>
           </div>
           <div>
-            <p>Melhor sequência</p>
             <p>{ storageStatistics.bestWinStreak }</p>
+            <p>Melhor sequência</p>
           </div>
         </div>
         <img
