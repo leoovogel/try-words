@@ -5,6 +5,8 @@ describe('Teste o comportamento do game', () => {
 
     cy.visit('http://localhost:3000/');
     cy.wait(1);
+
+    cy.get('.ReactModal__Content').find('button').click();
   });
 
   it('É possível digitar uma palavra com 5 letras', () => {
@@ -56,6 +58,8 @@ describe('As dicas são mostradas corretamente', () => {
 
     cy.visit('http://localhost:3000/');
     cy.wait(1);
+
+    cy.get('.ReactModal__Content').find('button').click();
   });
 
   it('Duas letras certas e três inexistentes', () => {
