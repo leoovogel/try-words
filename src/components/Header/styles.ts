@@ -12,4 +12,16 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+
+  }
 `;

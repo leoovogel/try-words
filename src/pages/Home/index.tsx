@@ -11,9 +11,11 @@ import Keyboard from '../../components/Keyboard';
 import { Container, Main } from './styles';
 import { WordLine } from '../../components/WordLine';
 import { ILineList, TryWordContext } from '../../utils/types';
+import HowToPlayModal from '../../components/HowToPlayModal';
 
 export default function Home() {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+  const [isHowToPlayOpen, setIsHowToPlayModalOpen] = useState(true);
   const {
     gameInfo, setRandomSolution, setCurrentTry, storageSolution,
   } = useContext<TryWordContext>(tryWordContext);
@@ -32,7 +34,11 @@ export default function Home() {
     if (gameInfo.gameResult === 'lose') setIsResultModalOpen(true);
   }, [gameInfo.gameResult]);
 
-  const handleCloseModal = () => setIsResultModalOpen(false);
+  const handleCloseResultModal = () => setIsResultModalOpen(false);
+
+  const handleCloseHowToPlayModal = () => setIsHowToPlayModalOpen(false);
+
+  const handleOpenHowToPlayModal = () => setIsHowToPlayModalOpen(true);
 
   const handleKeyboardClick = ({ target }: React.MouseEvent) => {
     const newWord = [...word];
@@ -47,33 +53,39 @@ export default function Home() {
   };
 
   return (
-    <Main>
-      <Header />
-      <Container>
-        {gameInfo.lineList.map((line: ILineList) => (
-          <WordLine
-            key={line.id}
-            isActive={line.isActive}
-            line={line.id}
-            word={line.isActive ? word : ['', '', '', '', '']}
-            setWord={setWord}
-            currentFocus={currentFocus}
-            setCurrentFocus={setCurrentFocus}
-          />
-        ))}
-      </Container>
-      <Keyboard onKeyboardClick={handleKeyboardClick} />
-      <ToastContainer position="top-center" />
-      <GameResultModal
-        isOpen={isResultModalOpen}
-        onRequestClose={handleCloseModal}
+    <>
+      <HowToPlayModal
+        isOpen={isHowToPlayOpen}
+        onRequestClose={handleCloseHowToPlayModal}
       />
-      { gameInfo.gameResult === 'win' && (
-        <Confetti
-          width={width}
-          height={height}
+      <Main>
+        <Header openHowToPlayModal={handleOpenHowToPlayModal} />
+        <Container>
+          {gameInfo.lineList.map((line: ILineList) => (
+            <WordLine
+              key={line.id}
+              isActive={line.isActive}
+              line={line.id}
+              word={line.isActive ? word : ['', '', '', '', '']}
+              setWord={setWord}
+              currentFocus={currentFocus}
+              setCurrentFocus={setCurrentFocus}
+            />
+          ))}
+        </Container>
+        <Keyboard onKeyboardClick={handleKeyboardClick} />
+        <ToastContainer position="top-center" />
+        <GameResultModal
+          isOpen={isResultModalOpen}
+          onRequestClose={handleCloseResultModal}
         />
-      )}
-    </Main>
+        { gameInfo.gameResult === 'win' && (
+          <Confetti
+            width={width}
+            height={height}
+          />
+        )}
+      </Main>
+    </>
   );
 }
